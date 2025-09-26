@@ -17,7 +17,7 @@ class BandaDao {
         $stmt->execute([$id,$nome,$horario,$palco,$musicas]);
     }
     function listaGeral(){
-        $sql = "select * from banda";
+        $sql = "select * from banda order by nome asc";
         $query = $this->con->query($sql);
         $dados = $query->fetchAll(PDO::FETCH_ASSOC);
         return $dados;
