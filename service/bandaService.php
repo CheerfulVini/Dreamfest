@@ -22,8 +22,8 @@ class BandaService{
 
         $bandas = $this->dao->listaGeral();
         foreach ($bandas as $b) {
-            if($banda->getHorario() == $b['horario']){
-                $msgErro .= "Uma banda já tem esse horário<br>";
+            if($banda->getHorario() == $b['horario'] && $banda->getPalco() == $b['palco']){
+                $msgErro .= "Uma banda já tem esse horário nesse palco<br>";
                 break;
             }
         }
