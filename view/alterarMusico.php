@@ -56,7 +56,7 @@ if(isset($_GET["msgErro"])){
         </select><br>
 
         <label for='nome_artistico'>nome_artistico</label>
-        <input type='text' name='nome_artistico'><br>
+        <input type='text' name='nome_artistico' value="<?=$musico['nome_artistico']?>"><br>
 
         <button type="submit">Enviar</button>
         <a href="Listamusico.php">Voltar</a>
