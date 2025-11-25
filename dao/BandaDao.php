@@ -6,15 +6,16 @@ class BandaDao {
        $this->con=(new Conexao())->conectar();
     }
     function inserir($obj) {
-        $sql = "INSERT INTO banda (id, nome, horario, palco, musicas) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO banda (id, nome, horario, palco, musicas, genero) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->con->prepare($sql);
         $id=$obj->getId();
-    $nome=$obj->getNome();
-    $horario=$obj->getHorario();
-    $palco=$obj->getPalco();
-    $musicas=$obj->getMusicas();
+        $nome=$obj->getNome();
+        $horario=$obj->getHorario();
+        $palco=$obj->getPalco();
+        $musicas=$obj->getMusicas();
+        $genero=$obj->getGenero();
 
-        $stmt->execute([$id,$nome,$horario,$palco,$musicas]);
+        $stmt->execute([$id,$nome,$horario,$palco,$musicas,$genero]);
     }
     function listaGeral(){
         $sql = "select * from banda order by nome asc";
@@ -36,9 +37,9 @@ class BandaDao {
         return $stm->fetch(PDO::FETCH_ASSOC); 
     }
     function alterar($banda){
-        $sql = "UPDATE banda SET nome = ?, horario = ?, palco = ?, musicas = ? WHERE id = ?";
+        $sql = "UPDATE banda SET nome = ?, horario = ?, palco = ?, musicas = ?, genero = ? WHERE id = ?";
         $stm = $this->con->prepare($sql);
-        $stm->execute([$banda->getNome(), $banda->getHorario(), $banda->getPalco(), $banda->getMusicas(), $banda->getId()]);
+        $stm->execute([$banda->getNome(), $banda->getHorario(), $banda->getPalco(), $banda->getMusicas(), $banda->getGenero(), $banda->getId()]);
         return NULL;
     }
 
@@ -52,4 +53,16 @@ class BandaDao {
 
     return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function buscaPorNome($busca){
+        $sql = "SELECT * FROM banda WHERE nome LIKE ?";
+        $stm = $this->con->prepare($sql);
+
+        $busca = "%$busca%"; // <-- AQUI está a mágica
+
+        $stm->execute([$busca]);
+
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
