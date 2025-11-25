@@ -8,12 +8,24 @@ class BandaControl {
     private $dao;
     private $service;
     public function __construct(){
+      if (isset($_GET['ajax'])) {
+        // NÃO executa nada
+        $this->dao = new BandaDao();
+        $this->service = new BandaService();
+        return;
+      }
+
+      // Execução normal para páginas do sistema
       $this->banda=new Banda();
       $this->dao=new BandaDao();
-      $this->acao=$_GET["a"];
       $this->service = new BandaService();
-      $this->verificaAcao(); 
+
+      if(isset($_GET['a'])){
+          $this->acao=$_GET["a"];
+          $this->verificaAcao(); 
+      }
     }
+
     function verificaAcao(){
        switch($this->acao){
           case 1:
@@ -40,6 +52,7 @@ class BandaControl {
       $this->banda->setHorario($_POST['horario']);
       $this->banda->setPalco($_POST['palco']);
       $this->banda->setMusicas($_POST['musicas']);
+      $this->banda->setGenero($_POST['genero']);
 
       $msgErro = $this->service->validar($this->banda);
 
@@ -61,6 +74,7 @@ class BandaControl {
       $this->banda->setHorario($_POST['horario']);
       $this->banda->setPalco($_POST['palco']);
       $this->banda->setMusicas($_POST['musicas']);
+      $this->banda->setGenero($_POST['genero']);
 
       $msgErro = $this->service->validar($this->banda);
 
@@ -75,6 +89,17 @@ class BandaControl {
       $this->dao->buscar($id);
     }
 
+    function buscarTudo(){
+      return $this->dao->listaGeral();
+    }
+
+    function buscaPorNome($busca){
+      return $this->dao->buscaPorNome($busca);
+    }
 }
-new BandaControl();
+
+if(isset($_GET['a'])){
+  new BandaControl();
+}
+
 ?>
