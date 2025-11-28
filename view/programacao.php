@@ -9,7 +9,14 @@
 ?>
     <main>
         <label for="nome">Procure uma banda</label>
-        <input type="text" name="nome" id="nome" onblur="buscaBanda(this.value)">
+        <input type="text" name="nome" id="nome" onblur="buscaBandaNome(this.value)" placeholder="nome">
+        <input type="text" maxlength="2" name="horario" id="horario" onblur="buscaBandaHorario(this.value)" placeholder="horario">
+        <select name="palcos" id="palcos" placeholder="Palcos" onblur="buscaBandaPalco(this.value)">
+            <option value="">------------------</option>
+            <option value="a">Palco A</option>
+            <option value="b">Palco B</option>
+            <option value="c">Palco C</option>
+        </select>
         <table id="programacao">
             <tr>
                 <td>Nome</td>
