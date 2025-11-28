@@ -58,7 +58,29 @@ class BandaDao {
         $sql = "SELECT * FROM banda WHERE nome LIKE ?";
         $stm = $this->con->prepare($sql);
 
-        $busca = "%$busca%"; // <-- AQUI está a mágica
+        $busca = "%$busca%";
+
+        $stm->execute([$busca]);
+
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscaPorHorario($busca){
+        $sql = "SELECT * FROM banda WHERE horario LIKE ?";
+        $stm = $this->con->prepare($sql);
+
+        $busca = "%$busca%";
+
+        $stm->execute([$busca]);
+
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscaPorPalco($busca){
+        $sql = "SELECT * FROM banda WHERE palco LIKE ?";
+        $stm = $this->con->prepare($sql);
+
+        $busca = "%$busca%";
 
         $stm->execute([$busca]);
 
