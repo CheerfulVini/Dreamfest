@@ -42,5 +42,15 @@ function alterar($musico){
     $stm->execute([$musico->getNome(), $musico->getId_banda(), $musico->getCpf(), $musico->getInstrumento(), $musico->getNome_artistico(), $musico->getId()]);
     return NULL;
 }
+
+function buscaPorBanda($id){
+    $sql = "SELECT * FROM musico WHERE id_banda = :id";
+    $stm = $this->con->prepare($sql);
+    $stm->bindValue(":id", $id, PDO::PARAM_INT);
+    $stm->execute();
+
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
 ?>
