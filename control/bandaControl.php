@@ -9,13 +9,12 @@ class BandaControl {
     private $service;
     public function __construct(){
       if (isset($_GET['ajax'])) {
-        // NÃO executa nada
         $this->dao = new BandaDao();
         $this->service = new BandaService();
         return;
       }
 
-      // Execução normal para páginas do sistema
+      
       $this->banda=new Banda();
       $this->dao=new BandaDao();
       $this->service = new BandaService();
@@ -95,6 +94,14 @@ class BandaControl {
 
     function buscaPorNome($busca){
       return $this->dao->buscaPorNome($busca);
+    }
+
+    function buscaPorHorario($busca){
+      return $this->dao->buscaPorHorario($busca);
+    }
+
+    function buscaPorPalco($busca){
+      return $this->dao->buscaPorPalco($busca);
     }
 }
 
