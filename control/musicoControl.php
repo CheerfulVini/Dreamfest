@@ -8,11 +8,21 @@ class MusicoControl {
     private $dao;
     private $service;
     public function __construct(){
-       $this->musico=new Musico();
+      if (isset($_GET['ajax'])) {
+        $this->dao = new MusicoDao();
+        $this->service = new MusicoService();
+        return;
+      }
+
+      
+      $this->musico=new Musico();
       $this->dao=new MusicoDao();
-      $this->acao=$_GET["a"];
       $this->service = new MusicoService();
-      $this->verificaAcao(); 
+
+      if(isset($_GET['a'])){
+          $this->acao=$_GET["a"];
+          $this->verificaAcao(); 
+      }
     }
     function verificaAcao(){
        switch($this->acao){
@@ -70,7 +80,9 @@ class MusicoControl {
     function buscarId(){
       $this->dao->buscar($_REQUEST['id']);
     }
-    function buscaTodos(){}
+    function buscaTodosPorBanda($id){
+        return $this->dao->buscaPorBanda($id);
+    }
 
 }
 new MusicoControl();
